@@ -1,5 +1,6 @@
 import sys
 import io
+from pathlib import Path
 import time
 import asyncio
 import platform
@@ -10,6 +11,8 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode, ChatType
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from BANNED_FILES.config import TELEGRAM_TOKEN, BOT_NAME, BOT_VERSION, BOT_AUTHOR
 
@@ -111,7 +114,7 @@ async def cmd_help(message: Message):
     await message.answer(text)
 
 
-async def main():
+async def run_telegram():
     bot = Bot(
         token=TELEGRAM_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
@@ -136,6 +139,6 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        asyncio.run(run_telegram())
     except (KeyboardInterrupt, SystemExit):
         print("[TELEGRAM] Бот зупинений.")
